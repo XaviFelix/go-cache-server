@@ -11,21 +11,20 @@ type CacheADT[K comparable, V any] interface {
 	Evict(key K)
 }
 
+type CacheEntry[V any] struct {
+	value   V
+	element *list.Element
+}
+
 type LRUCache[K comparable, V any] struct {
-	items map[K]struct {
-		value   V
-		element *list.Element
-	}
-	list *list.List
+	items map[K]CacheEntry[V]
+	list  *list.List
 }
 
 func New[K comparable, V any]() *LRUCache[K, V] {
 	return &LRUCache[K, V]{
-		items: make(map[K]struct {
-			value   V
-			element *list.Element
-		}),
-		list: list.New(),
+		items: make(map[K]CacheEntry[V]),
+		list:  list.New(),
 	}
 }
 
