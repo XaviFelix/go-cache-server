@@ -80,10 +80,6 @@ func (c *LRUCache[K, V]) Evict() (V, bool) {
 	// Debug:
 	fmt.Print("This is the entry's element should be nil: ")
 	fmt.Println(entry.element)
-
-	fmt.Print("This is the value of the element which should be Hi: ")
-	fmt.Println(entry.value)
-
 	c.size--
 
 	return entry.value, true
