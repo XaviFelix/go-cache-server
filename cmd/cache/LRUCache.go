@@ -2,6 +2,7 @@ package cache
 
 import (
 	"container/list"
+	"fmt"
 )
 
 // TODO: Put() and Evict(), then test them
@@ -24,12 +25,12 @@ type LRUCache[K comparable, V any] struct {
 	capacity int
 }
 
-func New[K comparable, V any]() *LRUCache[K, V] {
+func New[K comparable, V any](capacity int) *LRUCache[K, V] {
 	return &LRUCache[K, V]{
 		items:    make(map[K]CacheEntry[V]),
 		list:     list.New(),
 		size:     0,
-		capacity: 2,
+		capacity: capacity,
 	}
 }
 
@@ -48,6 +49,8 @@ func (c *LRUCache[K, V]) Get(key K) (V, bool) {
 func (c *LRUCache[K, V]) Put(key K, value V) {
 	if item, exists := c.items[key]; exists {
 		item.value = value
+		c.items[key] = item
+		//item.value = value
 		c.list.MoveToFront(item.element)
 	} else {
 		if c.size >= c.capacity {
@@ -73,6 +76,13 @@ func (c *LRUCache[K, V]) Evict() (V, bool) {
 
 	entry := c.items[key]
 	delete(c.items, key)
+
+	// Debug:
+	fmt.Print("This is the entry's element should be nil: ")
+	fmt.Println(entry.element)
+
+	fmt.Print("This is the value of the element which should be Hi: ")
+	fmt.Println(entry.value)
 
 	c.size--
 
