@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/XaviFelix/go-cache-server.git/cmd/cache"
 )
 
 func main() {
-	lruCache := cache.New[string, string]()
-
-	fmt.Println(lruCache.GetSize())
-
+	lruCache := cache.New[string, string](5)
+	lruCache.Put("1", "Hi")
+	lruCache.Put("2", "No")
+	lruCache.Put("3", "SUP")
 }

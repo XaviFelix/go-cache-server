@@ -11,6 +11,7 @@ type CacheADT[K comparable, V any] interface {
 	Get(key K) (V, bool)
 	Put(key K, value V)
 	Evict() (V, bool)
+	GetSize() int
 }
 
 type CacheEntry[V any] struct {
