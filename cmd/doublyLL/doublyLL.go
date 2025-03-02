@@ -5,9 +5,17 @@ import (
 	"fmt"
 )
 
+// A list contains instances of Element struct
+// Which contanis a value of type 'any'
+
+// type Element struct {
+// 	Value any
+// }
+
 // Just learning how to use go's list
 func main() {
 	// Creating a new list and put stuff on it
+	fmt.Println("From doublyLL.go")
 	my_list := list.New()
 
 	element4 := my_list.PushBack(4)

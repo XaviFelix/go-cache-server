@@ -12,6 +12,7 @@ type CacheADT[K comparable, V any] interface {
 	Put(key K, value V)
 	Evict() (V, bool)
 	GetSize() int
+	CheckCapacity() int
 }
 
 type CacheEntry[V any] struct {
@@ -88,4 +89,8 @@ func (c *LRUCache[K, V]) Evict() (V, bool) {
 
 func (c *LRUCache[K, V]) GetSize() int {
 	return c.size
+}
+
+func (c *LRUCache[K, V]) CheckCapacity() int {
+	return c.capacity
 }
